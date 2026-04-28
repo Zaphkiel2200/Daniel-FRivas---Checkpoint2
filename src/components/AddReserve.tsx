@@ -22,7 +22,7 @@ function AddReserve() {
         onChange={(e) => setText(e.target.value)}
         placeholder="Nueva reserva"
       />
-      <button>Agregar Reserva</button>
+      <button>Agregar reserva</button>
     </form>
   );
 }
