@@ -1,15 +1,25 @@
-import AddReserve from "./components/AddReserve";
-import ReserveList from "./components/ReserveCount";
-import ReserveCounter from "./components/ReserveList";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../'; 
+import { reservarEspacio } from './store/slices/reserveSlice';
+import { EspacioCard } from './components/EspacioCard';
 
+export const ListaEspacios = () => {
+  const dispatch = useDispatch();
+  const espacios = useSelector((state: RootState) => state.reserve.espacios);
 
-function App() {
-	 <div>
-      <h1>Reservas de Espacios</h1>
-      <AddReserve />
-      <ReserveCounter />
-      <ReserveList />
-    </div>;
-}
-
-export default App;
+  return (
+    <div>
+      <h2>Espacios de Trabajo</h2>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {espacios.map(esp => (
+          <EspacioCard 
+            key={esp.id} 
+            espacio={esp} 
+            onAction={(id) => dispatch(reservarEspacio(id))} 
+            textoBoton="Reservar"
+          />
+        ))}
+      </div>
+    </div>
+  );
+};

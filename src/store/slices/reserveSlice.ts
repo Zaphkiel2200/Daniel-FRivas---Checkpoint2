@@ -1,22 +1,135 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type reserveState = {
-	status: string;
+interface Espacio {
+  id: number;
+  name: string;
+  type: string;
+  pricePerHour: number;
+  available: boolean;
+}
+
+interface ReserveState {
+  espacios: Espacio[];
+  reservas: Espacio[];
+}
+
+const initialState: ReserveState = {
+  espacios: [
+    [
+  {
+    "id": 1,
+    "name": "Agora Room",
+    "type": "meeting room",
+    "capacity": 10,
+    "location": "Floor 2",
+    "pricePerHour": 45000,
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "Andina Private Office",
+    "type": "private office",
+    "capacity": 4,
+    "location": "Floor 3",
+    "pricePerHour": 60000,
+    "available": true
+  },
+  {
+    "id": 3,
+    "name": "North Flex Desk",
+    "type": "shared desk",
+    "capacity": 1,
+    "location": "North Area",
+    "pricePerHour": 18000,
+    "available": true
+  },
+  {
+    "id": 4,
+    "name": "Creative Lab",
+    "type": "creative room",
+    "capacity": 8,
+    "location": "Floor 1",
+    "pricePerHour": 50000,
+    "available": false
+  },
+  {
+    "id": 5,
+    "name": "Pacific Executive Room",
+    "type": "meeting room",
+    "capacity": 14,
+    "location": "Floor 5",
+    "pricePerHour": 75000,
+    "available": true
+  },
+  {
+    "id": 6,
+    "name": "Cedro Private Office",
+    "type": "private office",
+    "capacity": 2,
+    "location": "Floor 4",
+    "pricePerHour": 42000,
+    "available": false
+  },
+  {
+    "id": 7,
+    "name": "Central Shared Desk",
+    "type": "shared desk",
+    "capacity": 1,
+    "location": "Central Area",
+    "pricePerHour": 15000,
+    "available": true
+  },
+  {
+    "id": 8,
+    "name": "Prisma Creative Room",
+    "type": "creative room",
+    "capacity": 6,
+    "location": "Floor 2",
+    "pricePerHour": 48000,
+    "available": true
+  },
+  {
+    "id": 9,
+    "name": "Sprint Room",
+    "type": "meeting room",
+    "capacity": 6,
+    "location": "Floor 1",
+    "pricePerHour": 38000,
+    "available": true
+  },
+  {
+    "id": 10,
+    "name": "Roble Private Office",
+    "type": "private office",
+    "capacity": 3,
+    "location": "Floor 6",
+    "pricePerHour": 55000,
+    "available": true
+  }
+]
+  reservas: []
 };
 
-const initialState: reserveState = {
-	status: 'ready',
-};
-
-const reserveSlice = createSlice({
-	name: 'reserve',
-	initialState,
-	reducers: {
-		setStatus: (state, action: PayloadAction<string>) => {
-			state.status = action.payload;
-		},
-	},
+export const reserveSlice = createSlice({
+  name: 'reserve',
+  initialState,
+  reducers: {
+    reservarEspacio: (state, action: PayloadAction<number>) => {
+      const espacio = state.espacios.find(e => e.id === action.payload);
+      if (espacio && espacio.available) {
+        espacio.available = false;
+        state.reservas.push({ ...espacio });
+      }
+    },
+    cancelarReserva: (state, action: PayloadAction<number>) => {
+      state.reservas = state.reservas.filter(e => e.id !== action.payload);
+      const espacio = state.espacios.find(e => e.id === action.payload);
+      if (espacio) {
+        espacio.available = true;
+      }
+    }
+  }
 });
 
-export const { setStatus } = reserveSlice.actions;
+export const { reservarEspacio, cancelarReserva } = reserveSlice.actions;
 export default reserveSlice.reducer;
