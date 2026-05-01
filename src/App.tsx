@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../'; 
+import type { RootState } from './store/store'; 
 import { reservarEspacio } from './store/slices/reserveSlice';
 import { EspacioCard } from './components/EspacioCard';
 
-export const ListaEspacios = () => {
+export default function App() {
   const dispatch = useDispatch();
   const espacios = useSelector((state: RootState) => state.reserve.espacios);
 

@@ -18,7 +18,7 @@ export const EspacioCard: React.FC<EspacioProps> = ({ espacio, onAction, textoBo
       <h3>{espacio.name}</h3>
       <p><strong>Tipo:</strong> {espacio.type}</p>
       <p><strong>Precio:</strong> ${espacio.pricePerHour}/hr</p>
-      <p><strong>Estado:</strong> {espacio.available ? '✅ Disponible' : '❌ No disponible'}</p>
+      <p><strong>Estado:</strong> {espacio.available ? 'Disponible' : 'No disponible'}</p>
       
       {(espacio.available || textoBoton === "Cancelar") && (
         <button 

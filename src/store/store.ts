@@ -3,7 +3,7 @@ import appReducer from './slices/reserveSlice';
 
 export const storeRedux = configureStore({
 	reducer: {
-		app: appReducer,
+		reserve: appReducer,
 	},
 });
 
